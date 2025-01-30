@@ -17,9 +17,9 @@ contract Erc20StandardFunctionsTest is AbstractTest {
         super.setUp();
 
         vm.prank(oracle);
-        instance.setBurnedTotalOnPoW(user, 500);
+        alphaMinter.setBurnedTotalOnPoW(user, 500);
         vm.prank(minter);
-        instance.mint(user, 500);
+        alphaMinter.mint(user, 500);
     }
 
     function testTransfer() public {
@@ -28,10 +28,10 @@ contract Erc20StandardFunctionsTest is AbstractTest {
         vm.expectEmit(true, true, true, true);
         emit Transfer(user, recipient, 200);
 
-        bool success = instance.transfer(recipient, 200);
+        bool success = alphaToken.transfer(recipient, 200);
         assertTrue(success);
-        assertEq(instance.balanceOf(user), 300);
-        assertEq(instance.balanceOf(recipient), 200);
+        assertEq(alphaToken.balanceOf(user), 300);
+        assertEq(alphaToken.balanceOf(recipient), 200);
     }
 
     function testERC20ApproveAndTransferFrom() public {
@@ -39,23 +39,23 @@ contract Erc20StandardFunctionsTest is AbstractTest {
 
         vm.expectEmit(true, true, true, true);
         emit Approval(user, minter, 300);
-        bool approved = instance.approve(minter, 300);
+        bool approved = alphaToken.approve(minter, 300);
         assertTrue(approved);
 
         vm.startPrank(minter);
         vm.expectEmit(true, true, true, true);
         emit Transfer(user, recipient, 200);
 
-        bool success = instance.transferFrom(user, recipient, 200);
+        bool success = alphaToken.transferFrom(user, recipient, 200);
         assertTrue(success);
 
-        assertEq(instance.balanceOf(user), 300);
-        assertEq(instance.balanceOf(recipient), 200);
-        assertEq(instance.allowance(user, minter), 100);
+        assertEq(alphaToken.balanceOf(user), 300);
+        assertEq(alphaToken.balanceOf(recipient), 200);
+        assertEq(alphaToken.allowance(user, minter), 100);
     }
 
     function testPermit() public {
-        uint256 nonceBefore = instance.nonces(user);
+        uint256 nonceBefore = alphaToken.nonces(user);
         uint256 deadline = block.timestamp + 1 hours;
 
         bytes32 digest = _buildPermitDigest(
@@ -71,12 +71,12 @@ contract Erc20StandardFunctionsTest is AbstractTest {
         vm.expectEmit(true, true, true, true);
         emit Approval(user, minter, 600);
 
-        instance.permit(user, minter, 600, deadline, v, r, s);
+        alphaToken.permit(user, minter, 600, deadline, v, r, s);
 
-        uint256 nonceAfter = instance.nonces(user);
+        uint256 nonceAfter = alphaToken.nonces(user);
         assertEq(nonceAfter, nonceBefore + 1);
 
-        uint256 newAllowance = instance.allowance(user, minter);
+        uint256 newAllowance = alphaToken.allowance(user, minter);
         assertEq(newAllowance, 600);
     }
 
@@ -87,7 +87,7 @@ contract Erc20StandardFunctionsTest is AbstractTest {
         uint256 nonce,
         uint256 deadline
     ) internal view returns (bytes32) {
-        bytes32 domainSeparator = instance.DOMAIN_SEPARATOR();
+        bytes32 domainSeparator = alphaToken.DOMAIN_SEPARATOR();
 
         bytes32 structHash = keccak256(
             abi.encode(

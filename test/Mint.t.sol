@@ -12,55 +12,55 @@ contract MintTest is AbstractTest {
 
     function testSetBurnedTotal() public {
         vm.prank(oracle);
-        instance.setBurnedTotalOnPoW(user, 1000);
-        assertEq(instance.getBurnedTotalOnPoW(user), 1000);
+        alphaMinter.setBurnedTotalOnPoW(user, 1000);
+        assertEq(alphaMinter.getBurnedTotalOnPoW(user), 1000);
     }
 
     function testSetBurnedTotalTwice() public {
         vm.startPrank(oracle);
-        instance.setBurnedTotalOnPoW(user, 1000);
-        instance.setBurnedTotalOnPoW(user, 1001);
-        assertEq(instance.getBurnedTotalOnPoW(user), 1001);
+        alphaMinter.setBurnedTotalOnPoW(user, 1000);
+        alphaMinter.setBurnedTotalOnPoW(user, 1001);
+        assertEq(alphaMinter.getBurnedTotalOnPoW(user), 1001);
     }
 
     function testSetBurnedTotalCannotDecrease() public {
         vm.startPrank(oracle);
-        instance.setBurnedTotalOnPoW(user, 1000);
+        alphaMinter.setBurnedTotalOnPoW(user, 1000);
         
         vm.expectRevert(bytes("Cannot reduce burned total"));
-        instance.setBurnedTotalOnPoW(user, 999);
+        alphaMinter.setBurnedTotalOnPoW(user, 999);
     }
 
     function testMintHappyCase() public {
         vm.prank(oracle);
-        instance.setBurnedTotalOnPoW(user, 1000);
+        alphaMinter.setBurnedTotalOnPoW(user, 1000);
 
         vm.startPrank(minter);
 
-        instance.mint(user, 500);
-        assertEq(instance.getMintedSoFar(user), 500);
-        assertEq(instance.balanceOf(user), 500);
+        alphaMinter.mint(user, 500);
+        assertEq(alphaMinter.getMintedSoFar(user), 500);
+        assertEq(alphaToken.balanceOf(user), 500);
 
-        instance.mint(user, 500);
-        assertEq(instance.getMintedSoFar(user), 1000);
-        assertEq(instance.balanceOf(user), 1000);
+        alphaMinter.mint(user, 500);
+        assertEq(alphaMinter.getMintedSoFar(user), 1000);
+        assertEq(alphaToken.balanceOf(user), 1000);
     }
 
     function testMintExceedsBurnedAllowance() public {
         vm.prank(oracle);
-        instance.setBurnedTotalOnPoW(user, 500);
+        alphaMinter.setBurnedTotalOnPoW(user, 500);
 
         vm.startPrank(minter);
-        instance.mint(user, 500);
+        alphaMinter.mint(user, 500);
 
         vm.expectRevert(bytes("Mint exceeds burned allowance"));
-        instance.mint(user, 1);
+        alphaMinter.mint(user, 1);
     }
 
     function testNonOracleCantSetBurnedTotal() public {
         vm.startPrank(minter);
 
-        try instance.setBurnedTotalOnPoW(user, 500) {
+        try alphaMinter.setBurnedTotalOnPoW(user, 500) {
             revert("Should have failed");
         } catch (bytes memory reason) {
             assertTrue(BytesUtils.startsWith(
@@ -71,9 +71,9 @@ contract MintTest is AbstractTest {
 
     function testNonMinterCantMint() public {
         vm.startPrank(oracle);
-        instance.setBurnedTotalOnPoW(user, 500);
+        alphaMinter.setBurnedTotalOnPoW(user, 500);
 
-        try instance.mint(user, 500) {
+        try alphaMinter.mint(user, 500) {
             revert("Should have failed");
         } catch (bytes memory reason) {
             assertTrue(BytesUtils.startsWith(

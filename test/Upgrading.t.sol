@@ -9,11 +9,11 @@ import "./MockAlphaV2.sol";
 
 contract UpgradingTest is AbstractTest {
     function testUpgrading() public {
-        assertEq(instance.name(), "Alpha");
+        assertEq(alphaToken.name(), "Alpha");
 
         vm.startPrank(upgrader);
-        Upgrades.upgradeProxy (address(instance), "MockAlphaV2.sol", "");
+        Upgrades.upgradeProxy (address(alphaToken), "MockAlphaV2.sol", "");
 
-        assertEq(instance.name(), "AlphaV2");
+        assertEq(alphaToken.name(), "AlphaV2");
     }
 }

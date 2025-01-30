@@ -8,8 +8,8 @@ import "./AbstractTest.sol";
 
 contract AlphaTest is AbstractTest {
     function testMetadata() public view {
-        assertEq(instance.name(), "Alpha");
-        assertEq(instance.symbol(), "ALPHA");
-        assertEq(instance.decimals(), 18);
+        assertEq(alphaToken.name(), "Alpha");
+        assertEq(alphaToken.symbol(), "ALPHA");
+        assertEq(alphaToken.decimals(), 18);
     }
 }

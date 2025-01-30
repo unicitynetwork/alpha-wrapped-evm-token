@@ -3,7 +3,7 @@ pragma solidity ^0.8.24;
 
 import {Test, console} from "forge-std/Test.sol";
 import {Upgrades} from "openzeppelin-foundry-upgrades/Upgrades.sol";
-import {Alpha} from "../src/Alpha.sol";
+import {AlphaToken} from "../src/AlphaToken.sol";
 import {AlphaMinter} from "../src/AlphaMinter.sol";
 
 abstract contract AbstractTest is Test {
@@ -17,7 +17,7 @@ abstract contract AbstractTest is Test {
     address public minter;
     address public upgrader;
 
-    Alpha public alphaToken;
+    AlphaToken public alphaToken;
     AlphaMinter public alphaMinter;
 
     function setUp() public virtual {
@@ -28,13 +28,13 @@ abstract contract AbstractTest is Test {
         upgrader = vm.addr(5);
 
         address proxy = Upgrades.deployUUPSProxy(
-            "Alpha.sol",
+            "AlphaToken.sol",
             abi.encodeCall(
-                Alpha.initialize,
+                AlphaToken.initialize,
                 (defaultAdmin, pauser, upgrader)
             )
         );
-        alphaToken = Alpha(proxy);
+        alphaToken = AlphaToken(proxy);
 
         alphaMinter = new AlphaMinter(alphaToken, defaultAdmin, oracle, minter);
 

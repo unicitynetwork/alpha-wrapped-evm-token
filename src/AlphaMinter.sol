@@ -3,7 +3,7 @@
 pragma solidity ^0.8.22;
 
 import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
-import {Alpha} from "./Alpha.sol";
+import {AlphaToken} from "./AlphaToken.sol";
 
 /**
  * @dev Controls the minting of Alpha tokens based on proof-of-burn data from a PoW chain.
@@ -13,7 +13,7 @@ import {Alpha} from "./Alpha.sol";
  *      - MINTER_ROLE: Mints new tokens; the contract ensures that the amount minted for each 
  *                     address never exceeds its recorded burn total.
  *
- * References an external Alpha token contract (Alpha.sol). Actual ERC20 token issuance occurs
+ * References an external Alpha token contract (AlphaToken.sol). Actual ERC20 token issuance occurs
  * when the `mint` function is invoked.
  */
 contract AlphaMinter is AccessControl {
@@ -24,9 +24,9 @@ contract AlphaMinter is AccessControl {
 
     mapping(address => uint256) private mintedSoFar;
 
-    Alpha private alphaToken;
+    AlphaToken private alphaToken;
 
-    constructor(Alpha _alphaToken, address _defaultAdmin, address _oracle, address _minter) {
+    constructor(AlphaToken _alphaToken, address _defaultAdmin, address _oracle, address _minter) {
         alphaToken = _alphaToken;
 
         _grantRole(DEFAULT_ADMIN_ROLE, _defaultAdmin);

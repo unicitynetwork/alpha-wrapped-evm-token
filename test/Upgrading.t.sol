@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import {Test, console} from "forge-std/Test.sol";
 import {Upgrades} from "openzeppelin-foundry-upgrades/Upgrades.sol";
-import {Alpha} from "../src/Alpha.sol";
+import {AlphaToken} from "../src/AlphaToken.sol";
 import "./AbstractTest.sol";
 import "./MockAlphaV2.sol";
 

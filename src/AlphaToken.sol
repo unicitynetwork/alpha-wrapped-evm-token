@@ -15,7 +15,7 @@ import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/U
  * subsequently via AccessControl. All roles may be revoked in the future,
  * thereby rendering the contract entirely trustless.
  */
-contract Alpha is Initializable, ERC20Upgradeable, ERC20PausableUpgradeable, AccessControlUpgradeable, ERC20PermitUpgradeable, UUPSUpgradeable {
+contract AlphaToken is Initializable, ERC20Upgradeable, ERC20PausableUpgradeable, AccessControlUpgradeable, ERC20PermitUpgradeable, UUPSUpgradeable {
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant UPGRADER_ROLE = keccak256("UPGRADER_ROLE");

@@ -1,13 +1,10 @@
-# Wrapped EVM token for the Alpha token
+# Wrapped ERC20 Token for the Alpha Token
 
-This project contains deployable ERC-20 Solidity smart contracts for the wrapped EVM token for the Alpha token.
+This repository provides an ERC20 token implementation (the **AlphaToken**) and a dedicated minter contract (the **AlphaMinter**), both developed with Foundry and OpenZeppelin.
 
-It is written using the Foundry framework.
+## Running Unit Tests
 
-## Running unit tests
-
-The following command runs unit tests on Ethereum VM.
+Use the Foundry CLI to run the unit tests:
 
 ```shell
-$ forge test
-```
+forge test

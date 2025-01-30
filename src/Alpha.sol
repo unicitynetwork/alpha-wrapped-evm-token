@@ -9,6 +9,12 @@ import {ERC20PermitUpgradeable} from "@openzeppelin/contracts-upgradeable/token/
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
+/**
+ * @dev ERC20 token with permit (EIP-2612) and role-based access control.
+ * The MINTER_ROLE is not assigned during initialization and must be granted
+ * subsequently via AccessControl. All roles may be revoked in the future,
+ * thereby rendering the contract entirely trustless.
+ */
 contract Alpha is Initializable, ERC20Upgradeable, ERC20PausableUpgradeable, AccessControlUpgradeable, ERC20PermitUpgradeable, UUPSUpgradeable {
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");

@@ -7,12 +7,12 @@ library BytesUtils {
         require(to <= b.length, "TO_LESS_THAN_LENGTH_REQUIRED");
 
         result = new bytes(to - from);
-        for (uint i = 0; i < result.length; i++) {
+        for (uint256 i = 0; i < result.length; i++) {
             result[i] = b[from + i];
         }
     }
 
-    function substring(bytes memory b, uint offset, uint length) internal pure returns(bytes memory) {
+    function substring(bytes memory b, uint256 offset, uint256 length) internal pure returns(bytes memory) {
         return slice(b, offset, offset + length);
     }
 

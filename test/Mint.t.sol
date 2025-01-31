@@ -4,7 +4,7 @@ pragma solidity ^0.8.13;
 import {Test, console} from "forge-std/Test.sol";
 import "@openzeppelin/contracts/access/IAccessControl.sol";
 import {AlphaToken} from "../src/AlphaToken.sol";
-import "../src/utils/BytesUtils.sol";
+import "./utils/BytesUtils.sol";
 import "./AbstractTest.sol";
 
 contract MintTest is AbstractTest {

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.24;
 
 import {Test, console} from "forge-std/Test.sol";
-import "../../src/utils/BytesUtils.sol";
+import "./BytesUtils.sol";
 
 contract BytesUtilsTest is Test {
     function setUp() public {

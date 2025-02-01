@@ -98,6 +98,9 @@ contract MintTest is AbstractTest {
         alphaMinter.mint(user, 100);
         assertEq(alphaMinter.getMintedSoFar(user), 600);
         assertEq(alphaToken.balanceOf(user), 600);
+
+        vm.expectRevert(bytes("Mint exceeds burned allowance"));
+        alphaMinter.mint(user, 1);
     }
 
     function testMultipleUsersMint() public {

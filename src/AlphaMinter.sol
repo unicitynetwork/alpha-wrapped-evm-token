@@ -17,6 +17,8 @@ import {AlphaToken} from "./AlphaToken.sol";
  * when the `mint` function is invoked.
  */
 contract AlphaMinter is AccessControl {
+    event BurnedTotalUpdated(address indexed user, uint256 newValue);
+
     bytes32 public constant ORACLE_ROLE = keccak256("ORACLE_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
@@ -47,6 +49,7 @@ contract AlphaMinter is AccessControl {
     function setBurnedTotalOnPoW(address user, uint256 newValue) public onlyRole(ORACLE_ROLE) {
         require (newValue >= burnedTotalsOnPoW[user], "Cannot reduce burned total");
         burnedTotalsOnPoW[user] = newValue;
+        emit BurnedTotalUpdated(user, newValue);
     }
 
     /**

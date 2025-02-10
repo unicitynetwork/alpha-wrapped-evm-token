@@ -8,18 +8,32 @@ import "./utils/BytesUtils.sol";
 import "./AbstractTest.sol";
 
 contract MintTest is AbstractTest {
+    event BurnedTotalUpdated(address indexed user, uint256 newValue);
+
     address user = address(99);
 
     function testSetBurnedTotal() public {
-        vm.prank(oracle);
+        vm.startPrank(oracle);
+
+        vm.expectEmit(true, true, true, true);
+        emit BurnedTotalUpdated(user, 1000);
+
         alphaMinter.setBurnedTotalOnPoW(user, 1000);
+
         assertEq(alphaMinter.getBurnedTotalOnPoW(user), 1000);
     }
 
     function testSetBurnedTotalTwice() public {
         vm.startPrank(oracle);
+
+        vm.expectEmit(true, true, true, true);
+        emit BurnedTotalUpdated(user, 1000);
         alphaMinter.setBurnedTotalOnPoW(user, 1000);
+
+        vm.expectEmit(true, true, true, true);
+        emit BurnedTotalUpdated(user, 1001);
         alphaMinter.setBurnedTotalOnPoW(user, 1001);
+
         assertEq(alphaMinter.getBurnedTotalOnPoW(user), 1001);
     }
 

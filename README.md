@@ -8,3 +8,8 @@ Use the Foundry CLI to run the unit tests:
 
 ```shell
 forge test
+```
+
+## Deployment and interaction
+
+Deployment and interaction scripts have been added to the `script` folder. Before they can be used, an `.env` file needs to be created in the project root folder. The `.env.sample` file contains an example of how that file can look like.

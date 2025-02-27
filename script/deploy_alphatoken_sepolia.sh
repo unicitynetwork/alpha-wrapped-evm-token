@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-DEFAULT_ADMIN=0x91CaD8e9440328CCc73466A660FCBbA317071395
-PAUSER=0x91CaD8e9440328CCc73466A660FCBbA317071395
-UPGRADER=0x91CaD8e9440328CCc73466A660FCBbA317071395
+DEFAULT_ADMIN=0xC7DcbF135F088dA2a4BeC3FaB5c21C30735166c8
+PAUSER=0xC7DcbF135F088dA2a4BeC3FaB5c21C30735166c8
+UPGRADER=0xC7DcbF135F088dA2a4BeC3FaB5c21C30735166c8
 
 [ -f .env ] && source .env || { echo ".env file not found"; exit 1; }
 if [ -z "$INFURA_API_KEY" ]; then
@@ -24,6 +24,7 @@ forge script script/AlphaToken.s.sol:AlphaTokenScript \
     --fork-url "https://sepolia.infura.io/v3/$INFURA_API_KEY" \
     --chain-id 11155111 \
     -vvv \
-    --with-gas-price 10gwei 
+    --with-gas-price 10gwei \
+    --verify --retries 60
 
 echo "Deployment complete."

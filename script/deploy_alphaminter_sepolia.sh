@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-DEFAULT_ADMIN=0x91CaD8e9440328CCc73466A660FCBbA317071395
-ORACLE=0xAe1875D0Ab8D2BD8e46c1Ce4844D9DbA03E3a966
-MINTER=0x91CaD8e9440328CCc73466A660FCBbA317071395 # This MINTER value here is different from ALPHA_MINTER: ALPHA_MINTER references the AlphaMinter smart contract, whereas the MINTER here references the address that invokes the minting operaton on the AlphaMinter smart contract.
+DEFAULT_ADMIN=0xC7DcbF135F088dA2a4BeC3FaB5c21C30735166c8
+ORACLE=0x9b17B793A2aB1f7234ddB599f8Ad5B1b7F3E39De
+MINTER=0xC7DcbF135F088dA2a4BeC3FaB5c21C30735166c8 # This MINTER value here is different from ALPHA_MINTER: ALPHA_MINTER references the AlphaMinter smart contract, whereas the MINTER here references the address that invokes the minting operaton on the AlphaMinter smart contract.
 
 [ -f .env ] && source .env || { echo ".env file not found"; exit 1; }
 if [ -z "$INFURA_API_KEY" ]; then
@@ -29,6 +29,7 @@ forge script script/AlphaMinter.s.sol:AlphaMinterScript \
     --fork-url "https://sepolia.infura.io/v3/$INFURA_API_KEY" \
     --chain-id 11155111 \
     -vvv \
-    --with-gas-price 10gwei
+    --with-gas-price 10gwei \
+    --verify --retries 60
 
 echo "Deployment complete."

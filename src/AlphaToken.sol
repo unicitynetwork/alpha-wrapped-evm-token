@@ -28,7 +28,7 @@ contract AlphaToken is Initializable, ERC20Upgradeable, ERC20PausableUpgradeable
     function initialize(address defaultAdmin, address pauser, address upgrader)
         initializer public
     {
-        __ERC20_init("Alpha", "ALPHA");
+        __ERC20_init("Wrapped Unicity Alpha", "ALPHA");
         __ERC20Pausable_init();
         __AccessControl_init();
         __ERC20Permit_init("Alpha");
